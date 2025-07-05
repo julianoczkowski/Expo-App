@@ -1,0 +1,67 @@
+# Expo Mobile Development Guide
+
+This repository contains comprehensive documentation for getting started with Expo and Material 3 Expressive for cross-platform mobile app development.
+
+## 📑 Documentation Contents
+
+### [Why Expo?](why_expo.md)
+
+An in-depth overview of the Expo platform and its benefits, including:
+
+- **Platform Overview** - What makes Expo unique in the React Native ecosystem
+- **Key Benefits** - Seven major advantages of using Expo for mobile development
+- **Use Cases** - When Expo is the right choice for your project
+
+### Setup Guides
+
+Platform-specific setup instructions for getting started with Expo and Material 3 Expressive:
+
+- [**macOS Setup Guide**](Docs/setup_mac.md) - Complete instructions for setting up on macOS
+- [**Windows Setup Guide**](Docs/setup_pc.md) - Complete instructions for setting up on Windows
+
+## 🚀 Getting Started
+
+1. First, read [Why Expo?](why_expo.md) to understand the platform's benefits
+2. Follow the setup guide for your operating system:
+   - [macOS Setup](Docs/setup_mac.md)
+   - [Windows Setup](Docs/setup_pc.md)
+3. Start building your first app with the provided bootstrap scripts
+
+## 📋 What's Included
+
+### In the Why Expo Guide:
+
+- **Expo in a Nutshell** - Core concepts and capabilities
+- **Rapid Development** - How Expo accelerates the development process
+- **Cross-Platform APIs** - Native functionality without platform-specific code
+- **Platform-Independent Workflow** - Build for any platform from any OS
+- **Efficient Updates & Deployment** - OTA updates and simplified distribution
+- **Modern & Maintained** - Latest React Native features and regular updates
+- **Scalability** - Growing with your project's needs
+- **Community Resources** - Support and ecosystem benefits
+
+### In the Setup Guides:
+
+- **Quick Start** - Bootstrap scripts for immediate setup
+- **Environment Configuration** - Required tools and dependencies
+- **App Creation** - Creating your first Expo app
+- **Material 3 Integration** - Setting up the Material 3 Expressive design system
+- **Theme Configuration** - Customizing appearance for your brand
+- **Development Workflow** - Day-to-day development practices
+- **Cloud Builds** - Using EAS for app building and distribution
+- **Troubleshooting** - Common issues and their solutions
+
+## 🛠 Requirements
+
+- Node.js 22 LTS
+- Git
+- Android Studio (for Android development)
+- Xcode (for iOS development, macOS only)
+
+## 📚 Additional Resources
+
+All documentation includes links to official resources for further reading on specific topics.
+
+---
+
+_This documentation is designed to get you from zero to a running Material 3 Expressive app in under an hour, with no guessing and no skipped steps._
