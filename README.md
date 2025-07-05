@@ -51,6 +51,17 @@ Platform-specific setup instructions for getting started with Expo and Material 
 - **Cloud Builds** - Using EAS for app building and distribution
 - **Troubleshooting** - Common issues and their solutions
 
+## 🔍 Context7 MCP Integration
+
+Both setup guides include instructions for integrating [Context7 MCP](https://github.com/upstash/context7), a powerful tool that provides:
+
+- **Up-to-date documentation** for Expo and React Native directly in your Cursor IDE
+- **Instant access** to API references, component guides, and code examples
+- **Simple setup** using the web-based MCP server URL
+- **Contextual help** while coding without leaving your development environment
+
+To use Context7, simply type `use context7` followed by your Expo or React Native question in Cursor's AI chat panel. This integration significantly speeds up development by providing accurate, current documentation at your fingertips.
+
 ## 🛠 Requirements
 
 - Node.js 22 LTS

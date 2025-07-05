@@ -176,6 +176,39 @@ const { LightTheme } = adaptNavigationTheme({
 | **ESLint** + **Prettier**  | Auto-format & lint      |
 | **ES7+ React/TS Snippets** | Boilerplate shortcuts   |
 
+### 4.1 Context7 MCP for Up-to-Date Documentation
+
+Install [Context7 MCP](https://github.com/upstash/context7) in Cursor to get instant access to the latest Expo and React Native documentation:
+
+1. Open Cursor and go to **Settings** (⚙️)
+2. Navigate to **Tools&Integrations** > **MCP Servers**
+3. Click **New MCP Server**
+4. Add the following configuration:
+
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "url": "https://mcp.context7.com/mcp"
+    }
+  }
+}
+```
+
+5. Click **Save**
+
+Now you can access up-to-date documentation by typing:
+
+- `use context7` followed by your Expo or React Native question
+
+This gives you instant access to:
+
+- Latest API references
+- Component documentation
+- Best practices
+- Code examples
+- Troubleshooting guides
+
 ## 5. Cloud Builds with EAS
 
 ```bash
@@ -228,3 +261,4 @@ Just copy this entire content to Cursor or other LLM and ask it to set the Expo 
 [6]: https://m3.material.io/blog/building-with-m3-expressive?utm_source=chatgpt.com "Start building with Material 3 Expressive"
 [7]: https://m3.material.io/?utm_source=chatgpt.com "Material Design 3 - Google's latest open source design system"
 [8]: https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/?utm_source=chatgpt.com "Upgrade Expo SDK - Expo Documentation"
+[9]: https://github.com/upstash/context7 "Context7 MCP - Up-to-date Code Documentation For Any Prompt"
