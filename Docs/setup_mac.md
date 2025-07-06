@@ -68,7 +68,11 @@ adb --version
 
 ## 2. Running Your App
 
-### 2.1 iOS Simulator (Fastest)
+There are four primary ways to run your Expo app during development.
+
+### 2.1 iOS Simulator (macOS Only)
+
+This is the fastest and most common method for macOS users.
 
 ```bash
 npx expo start --ios
@@ -76,146 +80,84 @@ npx expo start --ios
 
 ### 2.2 Android Emulator
 
+You can also run a virtualized Android device directly on your Mac.
+
+1.  **Open Android Studio** and navigate to the **Virtual Device Manager** (AVD Manager).
+2.  **Create a Virtual Device** (Pixel 8 with API 33 or 34 is recommended).
+3.  **Start the Emulator** from the AVD Manager.
+4.  Once the emulator is running, start the app on it from your terminal:
+
 ```bash
-# start Pixel 8 (API 35) from Android Studio or `emulator @Pixel_8_API_35`
+# Make sure the emulator is running before executing the command
 npx expo start --android
 ```
 
-### Setting Up an Android Emulator
+### 2.3 Physical Device (USB)
 
-If you see an error like `No Android connected device found, and no emulators could be started automatically`, follow these steps:
+You can connect a physical device directly to your Mac via USB.
 
-1. **Open Android Studio**
+**For Android:**
 
-2. **Open the AVD Manager**:
+1.  **Enable Developer Options** and **USB Debugging** on your device.
+2.  **Connect your device** with a USB cable and accept the debugging prompt.
+3.  **Verify the connection** by running `adb devices` in your terminal.
+4.  Run `npx expo start --android`.
 
-   - Click on "More Actions" or the three dots in the top-right corner
-   - Select "Virtual Device Manager" or "AVD Manager"
+**For iOS:**
+Running on a physical iOS device requires a paid Apple Developer account for code signing. Once set up, you can select your device in Xcode or use EAS Build for development builds. The iOS Simulator is the recommended free alternative.
 
-3. **Create a New Virtual Device**:
+### 2.4 Physical Device (Local Network with Expo Go)
 
-   - Click "Create Virtual Device" button
-   - Select a phone definition (Pixel 8 is recommended)
-   - Click "Next"
-
-4. **Select a System Image**:
-
-   - Choose a system image (API 33 or 34 is recommended for best compatibility)
-   - If you don't have the system image downloaded, click "Download" next to it
-   - Click "Next" and then "Finish"
-
-5. **Start the Emulator**:
-
-   - In the AVD Manager, click the play button (▶️) next to your virtual device
-   - Wait for the emulator to fully boot up (you'll see the Android home screen)
-
-6. **Run Expo Again**:
-   - Once the emulator is running, try again:
-   ```
-   npx expo start --android
-   ```
-
-### Using a Physical Android Device
-
-To use a physical Android device for development:
-
-1. **Enable Developer Options** on your device:
-
-   - Go to Settings > About Phone
-   - Tap "Build Number" 7 times until you see "You are now a developer"
-
-2. **Enable USB Debugging**:
-
-   - Go to Settings > System > Developer Options
-   - Turn on "USB Debugging"
-
-3. **Connect your device** to your computer with a USB cable
-
-4. **Accept the USB debugging prompt** on your device
-
-5. **Verify connection** in Terminal:
-
-   ```bash
-   adb devices
-   # Should list your connected device
-   ```
-
-6. **Run Expo**:
-   ```
-   npx expo start --android
-   ```
-
-### 2.3 Real Device (Local Network)
+Run the app on any physical device (Android or iOS) using the **Expo Go** app, as long as it's on the same Wi-Fi network as your computer.
 
 ```bash
-npx expo start   # scan QR with Expo Go (iOS or Android)
-# Your device must be on the same local network as your computer
+npx expo start
+# Scan the QR code with the Expo Go app (Play Store / App Store)
 ```
 
-## 3. Adding Material 3 Expressive
+## 3. Material 3 Expressive Theme
 
-### 3.1 Install Libraries
+The project is pre-configured with a sophisticated Material 3 theme system that supports dynamic colors, brand customization, and unified styling across the app and navigation components.
 
-```bash
-npx expo install react-native-paper react-native-vector-icons \
-             react-native-safe-area-context react-native-gesture-handler \
-             react-native-reanimated react-native-screens \
-             @pchmn/expo-material3-theme
-```
+The entire theme is configured in **`MyFirstApp/app/_layout.tsx`**, which serves as the root layout for the application.
 
-Paper v5 provides a full MD3 component kit; `expo-material3-theme` injects dynamic-color palettes (Android 12+) ([m3.material.io][4])
+### 3.1 Theme Providers
 
-### 3.2 Theme Setup
+In `_layout.tsx`, the app is wrapped with two providers:
 
-```tsx
-// App.tsx
-import React from "react";
-import { useColorScheme } from "react-native";
-import { useMaterial3Theme } from "@pchmn/expo-material3-theme";
-import { MD3LightTheme, MD3DarkTheme, PaperProvider } from "react-native-paper";
+1.  **`PaperProvider`**: This is from `react-native-paper` and applies the Material 3 theme to all Paper components (buttons, cards, etc.).
+2.  **`ThemeProvider`**: This is from `@react-navigation/native` and applies a compatible theme to the navigation elements (like the header bar and screen backgrounds).
 
-export default function App() {
-  const scheme = useColorScheme(); // 'light' | 'dark'
-  const { theme: sysTheme } = useMaterial3Theme(); // dynamic palette
+This ensures a consistent look and feel across the entire application.
 
-  const paperTheme =
-    scheme === "dark"
-      ? { ...MD3DarkTheme, colors: sysTheme.dark }
-      : { ...MD3LightTheme, colors: sysTheme.light };
+### 3.2 Brand Palette & Customization
 
-  return <PaperProvider theme={paperTheme}>{/* … */}</PaperProvider>;
-}
-```
+The theme uses custom brand colors defined in **`MyFirstApp/assets/material-theme.json`**. This file is generated by the [Material Theme Builder](https://m3.material.io/theme-builder) and contains palettes for both light and dark modes.
 
-Dynamic color now powers every Paper component out-of-the-box.
+To change the app's primary color and overall theme:
 
-### 3.3 Brand Palette (Optional)
+1.  Open the **Material Theme Builder** and pick a new seed color.
+2.  Export the theme as a **JSON** file.
+3.  Replace the contents of `material-theme.json` with the new data.
 
-Export JSON from **Material Theme Builder** and drop into the `colors` block.
+The app will automatically pick up the new colors.
 
-### 3.4 Typography
+### 3.3 Typography
 
-```bash
-npx expo install expo-font @expo-google-fonts/roboto
-```
+The project uses the **Roboto** font family, which is pre-loaded in `_layout.tsx`. The theme is configured to use different weights for body text and headlines, following Material 3 guidelines. You can adjust the font configuration in the `fontConfig` object within `_layout.tsx`.
 
-Load `Roboto_400Regular` / `Roboto_500Medium` and map them onto Paper's MD3 text styles.
+### 3.4 Navigation Colors
 
-### 3.5 Motion & Shapes
+To ensure UI consistency, the navigation theme is adapted from the main `react-native-paper` theme using the `adaptNavigationTheme` function. This function creates navigation-compatible themes from your Material 3 colors, so your app's header, tab bar, and background will always match the component theme.
 
-```bash
-npx expo install moti
-```
-
-- Increase `roundness` to `16` for the softer Expressive radius
-- Use `<MotiView>` for MD3 spring animations
-
-### 3.6 Icons
+### 3.5 Icons
 
 ```tsx
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 <MaterialCommunityIcons name="palette-swatch" size={28} />;
 ```
+
+Use **Filled** icons for primary actions and **Outlined** for secondary ones to align with Material Design guidance.
 
 ## 4. Recommended IDE Extensions
 
@@ -226,6 +168,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 | **ES7 React/TS Snippets** | Faster boilerplate    |
 
 ### 4.1 Context7 MCP for Up-to-Date Documentation
+
+To stay current with the rapidly evolving React Native and Expo ecosystems, this project recommends using the **Context7 MCP** extension in Cursor. It provides a conversational interface to fetch the latest official documentation, code examples, and API references without leaving your editor.
 
 Install [Context7 MCP](https://github.com/upstash/context7) in Cursor to get instant access to the latest Expo and React Native documentation:
 
@@ -290,6 +234,7 @@ eas update --branch main -m "Dark-mode typography tweak"
 | Metro stuck at 99%                   | `adb reverse tcp:8081 tcp:8081` then reload                                                            |
 | iOS build fails "pods not installed" | `cd ios && pod install && cd ..`                                                                       |
 | "New Architecture" crash             | Add `"expo": { "jsEngine": "hermes", "android": { "useLegacyPackage": true } }` to `app.json`, rebuild |
+| `require.context` error              | Run `npx expo prebuild --clean` if Metro bundler fails                                                 |
 | Device can't connect                 | Ensure device is on same WiFi network as your computer                                                 |
 
 ## 8. Upgrade Cadence
