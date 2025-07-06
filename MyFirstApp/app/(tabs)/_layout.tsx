@@ -1,10 +1,12 @@
 import React from "react";
 import { Link, Tabs } from "expo-router";
-import { Pressable } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Pressable, useColorScheme, View } from "react-native";
 import { useTheme } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-// Material Community Icons for tabs
+/**
+ * Tab bar icon component using MaterialCommunityIcons
+ */
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof MaterialCommunityIcons>["name"];
   color: string;
@@ -15,6 +17,7 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
+  const colorScheme = useColorScheme();
   const theme = useTheme();
 
   return (
@@ -25,11 +28,10 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: theme.colors.surface,
           borderTopColor: theme.colors.outlineVariant,
+          borderTopWidth: 1,
+          elevation: 0,
         },
-        headerStyle: {
-          backgroundColor: theme.colors.surface,
-        },
-        headerTintColor: theme.colors.onSurface,
+        headerShown: false, // Hide the default header since we're using our custom bottom toolbar
       }}
     >
       <Tabs.Screen
@@ -37,28 +39,14 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <MaterialCommunityIcons
-                    name="information"
-                    size={25}
-                    color={theme.colors.onSurface}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
-          title: "Profile",
+          title: "Components",
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="account" color={color} />
+            <TabBarIcon name="view-grid" color={color} />
           ),
         }}
       />
