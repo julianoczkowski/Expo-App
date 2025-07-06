@@ -27,6 +27,32 @@ Platform-specific setup instructions for getting started with Expo and Material 
    - [Windows Setup](Docs/setup_pc.md)
 3. Start building your first app with the provided bootstrap scripts
 
+## 📱 Sample App: MyFirstApp
+
+The repository includes a complete sample application that demonstrates Material 3 Expressive implementation with Expo. Key features include:
+
+### Material 3 Expressive Implementation
+
+- **Dynamic Theming** - Automatically adapts to light/dark mode with Material You colors
+- **Typography** - Uses Roboto fonts with proper Material 3 text styles
+- **Component Library** - Showcases Paper v5 components with Material 3 styling
+- **Animations** - Fluid motion using Moti for transitions and micro-interactions
+- **Navigation** - Tab-based navigation with Material 3 styling
+
+### App Screens
+
+- **Home Screen** - Showcases cards, buttons, and surfaces with Material 3 styling
+- **Profile Screen** - Demonstrates lists, avatars, and a floating action button
+- **Modal Screen** - Shows chips, cards, and content presentation
+
+### Technical Features
+
+- **Expo Router** - File-based routing with the latest Expo Router
+- **React Native Paper** - Material 3 components with proper theming
+- **Expo Material 3 Theme** - Dynamic color extraction from the system
+- **Moti Animations** - Spring-based animations for a lively interface
+- **Type Safety** - Full TypeScript implementation
+
 ## 📋 What's Included
 
 ### In the Why Expo Guide:
@@ -72,6 +98,16 @@ To use Context7, simply type `use context7` followed by your Expo or React Nativ
 ## 📚 Additional Resources
 
 All documentation includes links to official resources for further reading on specific topics.
+
+## 🧪 Running the Sample App
+
+To run the sample app:
+
+1. Clone this repository
+2. Navigate to the MyFirstApp directory
+3. Install dependencies: `npm install`
+4. Start the development server: `npx expo start`
+5. Use Expo Go on your device or an emulator/simulator to view the app
 
 ---
 

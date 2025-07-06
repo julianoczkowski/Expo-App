@@ -18,30 +18,22 @@ Paste this script into PowerShell to have a live **Material 3 Expressive** app i
 # 0. Prereqs -------------------------------------------------
 winget install --id Git.Git -e
 winget install --id OpenJS.NodeJS.LTS -e
-winget install --id Azul.Zulu.JDK.17 -e
+winget install -e --id Azul.Zulu.17.JDK # If you get any errors run: winget source update
+# Close and reopen the Powershell, run: java -version to check if the install was successful.
 winget install --id Google.AndroidStudio -e
 
 # 1. CLIs ----------------------------------------------------
-npm i -g expo-cli eas-cli
+npm i -g eas-cli
 
 # This is where you create your app change the name MyFirstApp.
 # 2. App -----------------------------------------------------
-npx create-expo-app MyFirstApp --template tabs#53
+npx create-expo-app MyFirstApp --template tabs
 cd MyFirstApp
-expo install react-native-paper react-native-vector-icons \
+npx expo install react-native-paper react-native-vector-icons \
              react-native-safe-area-context react-native-gesture-handler \
              react-native-reanimated react-native-screens \
              @pchmn/expo-material3-theme
-expo start --tunnel
-```
-
-### Android Setup
-
-Add Android tools to your PATH by running in PowerShell:
-
-```powershell
-setx ANDROID_HOME "%USERPROFILE%\AppData\Local\Android\Sdk"
-setx PATH "%PATH%;%ANDROID_HOME%\platform-tools;%ANDROID_HOME%\emulator"
+npx expo start
 ```
 
 ## 2. Running Your App
@@ -50,14 +42,104 @@ setx PATH "%PATH%;%ANDROID_HOME%\platform-tools;%ANDROID_HOME%\emulator"
 
 ```bash
 # make sure Pixel 8 (API 35) AVD is running
-expo start --android
+npx expo start --android
 ```
 
-### 2.2 Real Device (Fastest)
+### Android SDK PATH Setup
+
+If you encounter errors related to Android tools not being found, you need to add Android SDK to your PATH:
+
+1. **Open PowerShell as Administrator** (right-click on PowerShell and select "Run as Administrator")
+
+2. **Set the Android SDK environment variables**:
+
+   ```powershell
+   [Environment]::SetEnvironmentVariable("ANDROID_HOME", "$env:USERPROFILE\AppData\Local\Android\Sdk", "User")
+   [Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$env:USERPROFILE\AppData\Local\Android\Sdk\platform-tools;$env:USERPROFILE\AppData\Local\Android\Sdk\emulator", "User")
+   ```
+
+3. **Restart PowerShell** and verify the setup:
+
+   ```powershell
+   echo $env:ANDROID_HOME
+   # Should display the path to your Android SDK
+
+   adb --version
+   # Should display the Android Debug Bridge version
+   ```
+
+4. **Restart your computer** if the changes don't take effect immediately
+
+### Setting Up an Android Emulator
+
+If you see an error like `No Android connected device found, and no emulators could be started automatically`, follow these steps:
+
+1. **Open Android Studio**
+
+2. **Open the AVD Manager**:
+
+   - Click on "More Actions" or the three dots in the top-right corner
+   - Select "Virtual Device Manager" or "AVD Manager"
+
+3. **Create a New Virtual Device**:
+
+   - Click "Create Virtual Device" button
+   - Select a phone definition (Pixel 8 is recommended)
+   - Click "Next"
+
+4. **Select a System Image**:
+
+   - Choose a system image (API 33 or 34 is recommended for best compatibility)
+   - If you don't have the system image downloaded, click "Download" next to it
+   - Click "Next" and then "Finish"
+
+5. **Start the Emulator**:
+
+   - In the AVD Manager, click the play button (▶️) next to your virtual device
+   - Wait for the emulator to fully boot up (you'll see the Android home screen)
+
+6. **Run Expo Again**:
+   - Once the emulator is running, try again:
+   ```
+   npx expo start --android
+   ```
+
+### Using a Physical Android Device
+
+To use a physical Android device for development:
+
+1. **Enable Developer Options** on your device:
+
+   - Go to Settings > About Phone
+   - Tap "Build Number" 7 times until you see "You are now a developer"
+
+2. **Enable USB Debugging**:
+
+   - Go to Settings > System > Developer Options
+   - Turn on "USB Debugging"
+
+3. **Connect your device** to your computer with a USB cable
+
+4. **Accept the USB debugging prompt** on your device
+
+5. **Verify connection** in PowerShell:
+
+   ```powershell
+   adb devices
+   # Should list your connected device
+   ```
+
+6. **Run Expo**:
+   ```
+   npx expo start --android
+   ```
+
+### 2.2 Real Device (Local Network)
 
 ```bash
-expo start --tunnel      # prints a QR
-# Scan with Expo Go (Play Store / App Store)
+npx expo start
+# Scan the QR code with Expo Go app (Play Store / App Store)
+# Your device must be on the same local network as your computer
 ```
 
 ## 3. Adding Material 3 Expressive
@@ -65,7 +147,7 @@ expo start --tunnel      # prints a QR
 ### 3.1 Install Libraries
 
 ```bash
-expo install react-native-paper react-native-vector-icons \
+npx expo install react-native-paper react-native-vector-icons \
              react-native-safe-area-context react-native-gesture-handler \
              react-native-reanimated react-native-screens \
              @pchmn/expo-material3-theme
@@ -110,7 +192,7 @@ Dynamic color now powers every Paper component out-of-the-box. For devices < And
 ### 3.4 Typography
 
 ```bash
-expo install expo-font @expo-google-fonts/roboto
+npx expo install expo-font @expo-google-fonts/roboto
 ```
 
 ```tsx
@@ -140,7 +222,7 @@ const paperTheme = {
 ### 3.5 Motion & Shapes
 
 ```bash
-expo install moti       # spring-based shared-element & choreographed transitions
+npx expo install moti       # spring-based shared-element & choreographed transitions
 ```
 
 - Increase `roundness` to `16` for the softer Expressive radius
@@ -228,7 +310,7 @@ eas update --branch main -m "Fix splash jitter"
 
 ```text
 🛠  code .         # edit in Cursor (TS, Figma API, etc.)
-🔥  expo start     # hot-reload on emulator / phone
+🔥  npx expo start # hot-reload on emulator / phone
 ✅  git commit     # keep history
 📦  eas build      # cloud .ipa / .apk when you need testers
 🚀  eas update     # instant bug-fixes after launch
@@ -239,8 +321,9 @@ eas update --branch main -m "Fix splash jitter"
 | Problem                   | Solution                                                  |
 | ------------------------- | --------------------------------------------------------- |
 | Metro stuck at 99%        | `adb reverse tcp:8081 tcp:8081` then reload               |
-| "SDK mismatch" in Expo Go | Update Expo Go **or** run `expo prebuild`                 |
+| "SDK mismatch" in Expo Go | Update Expo Go **or** run `npx expo prebuild`             |
 | Blank emulator screen     | _AVD Manager → Wipe Data_; ensure **64-bit** system image |
+| Device can't connect      | Ensure device is on same WiFi network as your computer    |
 
 ## 8. Upgrade Cadence
 

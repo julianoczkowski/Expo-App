@@ -28,17 +28,17 @@ xcode-select --install || true        # Xcode CLI tools
 sudo xcodebuild -runFirstLaunch       # accept license
 
 # 2 – Global CLIs -------------------------------------------------------------
-npm i -g expo-cli eas-cli
+npm i -g eas-cli
 
 #This is where you start creating your app, change the name MyFirstApp.
 # 3 – Create & run app --------------------------------------------------------
-npx create-expo-app MyFirstApp --template tabs#53
+npx create-expo-app MyFirstApp --template tabs
 cd MyFirstApp
-expo install react-native-paper react-native-vector-icons \
+npx expo install react-native-paper react-native-vector-icons \
              react-native-safe-area-context react-native-gesture-handler \
              react-native-reanimated react-native-screens \
              @pchmn/expo-material3-theme
-expo start --ios                      # launches on iOS Simulator
+npx expo start --ios                      # launches on iOS Simulator
 ```
 
 ### Android Setup
@@ -50,25 +50,106 @@ export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools"
 ```
 
+After adding these lines, reload your profile by running:
+
+```zsh
+source ~/.zprofile
+```
+
+Verify the setup:
+
+```zsh
+echo $ANDROID_HOME
+# Should display the path to your Android SDK
+
+adb --version
+# Should display the Android Debug Bridge version
+```
+
 ## 2. Running Your App
 
 ### 2.1 iOS Simulator (Fastest)
 
 ```bash
-expo start --ios
+npx expo start --ios
 ```
 
 ### 2.2 Android Emulator
 
 ```bash
 # start Pixel 8 (API 35) from Android Studio or `emulator @Pixel_8_API_35`
-expo start --android
+npx expo start --android
 ```
 
-### 2.3 Real Device
+### Setting Up an Android Emulator
+
+If you see an error like `No Android connected device found, and no emulators could be started automatically`, follow these steps:
+
+1. **Open Android Studio**
+
+2. **Open the AVD Manager**:
+
+   - Click on "More Actions" or the three dots in the top-right corner
+   - Select "Virtual Device Manager" or "AVD Manager"
+
+3. **Create a New Virtual Device**:
+
+   - Click "Create Virtual Device" button
+   - Select a phone definition (Pixel 8 is recommended)
+   - Click "Next"
+
+4. **Select a System Image**:
+
+   - Choose a system image (API 33 or 34 is recommended for best compatibility)
+   - If you don't have the system image downloaded, click "Download" next to it
+   - Click "Next" and then "Finish"
+
+5. **Start the Emulator**:
+
+   - In the AVD Manager, click the play button (▶️) next to your virtual device
+   - Wait for the emulator to fully boot up (you'll see the Android home screen)
+
+6. **Run Expo Again**:
+   - Once the emulator is running, try again:
+   ```
+   npx expo start --android
+   ```
+
+### Using a Physical Android Device
+
+To use a physical Android device for development:
+
+1. **Enable Developer Options** on your device:
+
+   - Go to Settings > About Phone
+   - Tap "Build Number" 7 times until you see "You are now a developer"
+
+2. **Enable USB Debugging**:
+
+   - Go to Settings > System > Developer Options
+   - Turn on "USB Debugging"
+
+3. **Connect your device** to your computer with a USB cable
+
+4. **Accept the USB debugging prompt** on your device
+
+5. **Verify connection** in Terminal:
+
+   ```bash
+   adb devices
+   # Should list your connected device
+   ```
+
+6. **Run Expo**:
+   ```
+   npx expo start --android
+   ```
+
+### 2.3 Real Device (Local Network)
 
 ```bash
-expo start --tunnel   # scan QR with Expo Go (iOS or Android)
+npx expo start   # scan QR with Expo Go (iOS or Android)
+# Your device must be on the same local network as your computer
 ```
 
 ## 3. Adding Material 3 Expressive
@@ -76,7 +157,7 @@ expo start --tunnel   # scan QR with Expo Go (iOS or Android)
 ### 3.1 Install Libraries
 
 ```bash
-expo install react-native-paper react-native-vector-icons \
+npx expo install react-native-paper react-native-vector-icons \
              react-native-safe-area-context react-native-gesture-handler \
              react-native-reanimated react-native-screens \
              @pchmn/expo-material3-theme
@@ -115,7 +196,7 @@ Export JSON from **Material Theme Builder** and drop into the `colors` block.
 ### 3.4 Typography
 
 ```bash
-expo install expo-font @expo-google-fonts/roboto
+npx expo install expo-font @expo-google-fonts/roboto
 ```
 
 Load `Roboto_400Regular` / `Roboto_500Medium` and map them onto Paper's MD3 text styles.
@@ -123,7 +204,7 @@ Load `Roboto_400Regular` / `Roboto_500Medium` and map them onto Paper's MD3 text
 ### 3.5 Motion & Shapes
 
 ```bash
-expo install moti
+npx expo install moti
 ```
 
 - Increase `roundness` to `16` for the softer Expressive radius
@@ -196,7 +277,7 @@ eas update --branch main -m "Dark-mode typography tweak"
 
 ```text
 ✍️  code .             # edit in Cursor
-⚡  expo start          # hot-reload on sim / device
+⚡  npx expo start      # hot-reload on sim / device
 ✅  git commit & push   # keep history
 📦  eas build          # cloud .ipa / .apk for testers
 🚀  eas update         # instant bug-fixes post-launch
@@ -209,6 +290,7 @@ eas update --branch main -m "Dark-mode typography tweak"
 | Metro stuck at 99%                   | `adb reverse tcp:8081 tcp:8081` then reload                                                            |
 | iOS build fails "pods not installed" | `cd ios && pod install && cd ..`                                                                       |
 | "New Architecture" crash             | Add `"expo": { "jsEngine": "hermes", "android": { "useLegacyPackage": true } }` to `app.json`, rebuild |
+| Device can't connect                 | Ensure device is on same WiFi network as your computer                                                 |
 
 ## 8. Upgrade Cadence
 
