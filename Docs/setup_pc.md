@@ -53,11 +53,22 @@ npx create-expo-app MyFirstApp --template tabs
 cd MyFirstApp
 ```
 
+Install the core Material Design library and its icons.
+
 ```powershell
-npx expo install react-native-paper react-native-vector-icons \
-             react-native-safe-area-context react-native-gesture-handler \
-             react-native-reanimated react-native-screens \
-             @pchmn/expo-material3-theme
+npx expo install react-native-paper react-native-vector-icons
+```
+
+Install the dependencies for navigation.
+
+```powershell
+npx expo install react-native-safe-area-context react-native-gesture-handler react-native-reanimated react-native-screens
+```
+
+Install the Material 3 theme helper.
+
+```powershell
+npx expo install '@pchmn/expo-material3-theme'
 ```
 
 ```powershell
