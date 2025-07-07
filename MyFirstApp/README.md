@@ -1,5 +1,59 @@
 # Material 3 Expressive Theme Implementation
 
+## Getting Started
+
+Follow these instructions to set up the project on your local machine.
+
+### Prerequisites
+
+Ensure you have Git and Node.js (LTS) installed. For running on an Android device or emulator, you'll need the Android SDK. Refer to `../Docs/setup_pc.md` for a complete guide.
+
+### 1. Clone the Repository
+
+Clone the project from GitHub. Replace `<repository-url>` with the actual URL.
+
+```bash
+git clone <repository-url>
+```
+
+Navigate into the cloned directory:
+
+```bash
+cd <repository-directory>
+```
+
+### 2. Install Dependencies
+
+The project's dependencies are managed with npm. Navigate to the app's folder and install them.
+
+```bash
+cd MyFirstApp
+```
+
+```bash
+npm install
+```
+
+### 3. Run the Application
+
+You can run the app using Expo's command-line tools.
+
+#### Run with Expo Go
+
+To start the Metro bundler and get a QR code to run the app on your physical device with Expo Go:
+
+```bash
+npx expo start
+```
+
+#### Run on Android
+
+To run the app directly on a connected Android emulator or device:
+
+```bash
+npx expo start --android
+```
+
 This app demonstrates the implementation of Material 3 Expressive design system in an Expo React Native application, featuring a custom yellow-based brand theme.
 
 ## Theme Implementation
