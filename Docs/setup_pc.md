@@ -11,28 +11,56 @@
 
 ## 1. Quick Start: Bootstrap Script (Windows)
 
-Paste this script into PowerShell to have a live **Material 3 Expressive** app in under an hour—from a Windows PC, no Xcode required.
+Paste these commands into PowerShell to have a live **Material 3 Expressive** app in under an hour—from a Windows PC, no Xcode required.
+
+_You only have to install the prerequisites (step 0) once._
+
+### 0. Prerequisites
 
 ```powershell
-# You have to do this only once (step 0-1)
-# 0. Prereqs -------------------------------------------------
 winget install --id Git.Git -e
+```
+
+```powershell
 winget install --id OpenJS.NodeJS.LTS -e
-winget install -e --id Azul.Zulu.17.JDK # If you get any errors run: winget source update
-# Close and reopen the Powershell, run: java -version to check if the install was successful.
+```
+
+```powershell
+winget install -e --id Azul.Zulu.17.JDK
+```
+
+> **Note**: After installing the JDK, close and reopen PowerShell. Run `java -version` to confirm it was successful. If you get any errors, try `winget source update`.
+
+```powershell
 winget install --id Google.AndroidStudio -e
+```
 
-# 1. CLIs ----------------------------------------------------
+### 1. CLIs
+
+```powershell
 npm i -g eas-cli
+```
 
-# This is where you create your app change the name MyFirstApp.
-# 2. App -----------------------------------------------------
+### 2. App
+
+This is where you create your app. You can change `MyFirstApp` to your project's name.
+
+```powershell
 npx create-expo-app MyFirstApp --template tabs
+```
+
+```powershell
 cd MyFirstApp
+```
+
+```powershell
 npx expo install react-native-paper react-native-vector-icons \
              react-native-safe-area-context react-native-gesture-handler \
              react-native-reanimated react-native-screens \
              @pchmn/expo-material3-theme
+```
+
+```powershell
 npx expo start
 ```
 

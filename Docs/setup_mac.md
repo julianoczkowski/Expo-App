@@ -11,34 +11,77 @@
 
 ## 1. Quick Start: Bootstrap Script (macOS)
 
-Paste this script into Terminal to have a live **Material 3 Expressive** Expo app running on your Mac in under an hour—no guessing, no skipped steps.
+Paste these commands into Terminal to have a live **Material 3 Expressive** Expo app running on your Mac in under an hour.
+
+_You only have to install the prerequisites (steps 0-1) once._
+
+### 0. Install Homebrew
+
+If you don't have [Homebrew](https://brew.sh/) installed, run this command first:
 
 ```bash
-#You need to do this only once (steps 0-2)!
-
-# 0 – Install Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-# 1 – Core tooling ------------------------------------------------------------
+### 1. Core Tooling
+
+Install Node.js, Git, and other essential development tools.
+
+```bash
 brew update
+```
+
+```bash
 brew install node@22 git watchman cocoapods
-brew install --cask android-studio    # Android SDK + emulator
-softwareupdate --install-rosetta --agree-to-license || true  # Intel libs on Apple Silicon
-xcode-select --install || true        # Xcode CLI tools
-sudo xcodebuild -runFirstLaunch       # accept license
+```
 
-# 2 – Global CLIs -------------------------------------------------------------
+```bash
+brew install --cask android-studio
+```
+
+> **Note**: The following commands might be needed on Apple Silicon (M1/M2/M3) Macs or for a fresh Xcode setup.
+
+```bash
+softwareupdate --install-rosetta --agree-to-license || true
+```
+
+```bash
+xcode-select --install || true
+```
+
+```bash
+sudo xcodebuild -runFirstLaunch
+```
+
+### 2. Global CLIs
+
+Install the Expo Application Services (EAS) CLI.
+
+```bash
 npm i -g eas-cli
+```
 
-#This is where you start creating your app, change the name MyFirstApp.
-# 3 – Create & run app --------------------------------------------------------
+### 3. Create & Run App
+
+This is where you create your app. You can change `MyFirstApp` to your project's name.
+
+```bash
 npx create-expo-app MyFirstApp --template tabs
+```
+
+```bash
 cd MyFirstApp
+```
+
+```bash
 npx expo install react-native-paper react-native-vector-icons \
              react-native-safe-area-context react-native-gesture-handler \
              react-native-reanimated react-native-screens \
              @pchmn/expo-material3-theme
-npx expo start --ios                      # launches on iOS Simulator
+```
+
+```bash
+npx expo start --ios
 ```
 
 ### Android Setup
